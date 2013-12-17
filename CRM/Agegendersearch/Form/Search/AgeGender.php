@@ -141,8 +141,9 @@ class CRM_Agegendersearch_Form_Search_AgeGender extends CRM_Contact_Form_Search_
     $maxAge = CRM_Utils_Array::value('max_age',
       $this->_formValues
     );
+    $maxAged = $maxAge + 1 ;
     if ( $maxAge != NULL ) {
-      $params[$count] = array(date("Y-m-d", strtotime("now - {$maxAge} year")), 'String');
+      $params[$count] = array(date("Y-m-d", strtotime("now - {$maxAged} year")), 'String');
       $clause[] = "contact_a.birth_date >= %{$count}";
       $count++;
     }
