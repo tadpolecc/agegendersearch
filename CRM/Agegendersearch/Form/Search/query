@@ -1,0 +1,16 @@
+select 
+contact.id as contact_id, 
+contact.sort_name as sort_name, 
+ca.street_address as street_address, 
+ca.postal_code as postal_code, 
+ca.city as city, 
+cov.label as gender, 
+contact.birth_date,
+DATE_FORMAT( FROM_DAYS( TO_DAYS( NOW( ) ) - TO_DAYS( contact.birth_date ) ) , '%Y' ) +0 as age
+from 
+civicrm_contact contact
+LEFT JOIN civicrm_address ca ON (ca.contact_id = contact.id AND ca.is_primary = 1)
+LEFT JOIN civicrm_option_value cov ON (cov.value = contact.gender_id AND cov.option_group_id =3)
+where contact.birth_date <= '1988-10-29'
+
+ORDER BY sort_name asc
